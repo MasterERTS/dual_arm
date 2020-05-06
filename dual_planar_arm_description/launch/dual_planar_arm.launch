@@ -1,0 +1,15 @@
+<launch>
+
+   <param name="robot_description" textfile="/home/user/ros_dev/test_ws/src/dual_arm/dual_planar_arm_description/urdf/dual_planar_arm.urdf" />
+
+   <node pkg="robot_state_publisher" type="robot_state_publisher" name="rsp" >
+   </node>
+
+   <node pkg="joint_state_publisher" type="joint_state_publisher" name="jsp" >
+      <param name="use_gui" value="true" />
+   </node>
+
+   <node pkg="rviz" type="rviz" name="rviz" args="-d $(find dual_planar_arm_description)/rviz/dual_planar_arm.rviz" >
+   </node>
+
+</launch>

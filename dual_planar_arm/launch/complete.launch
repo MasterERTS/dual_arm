@@ -1,0 +1,29 @@
+<launch>
+
+   <param name="robot_description" textfile="$(find dual_planar_arm_description)/urdf/dual_planar_arm.urdf" />
+
+   <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" >
+   </node>
+
+   <node pkg="dual_planar_arm" type="simulator" name="robot" output="screen" >
+   </node>
+
+   <node pkg="dual_planar_arm" type="move_left_arm" name="move_left_arm" output="screen" >
+   </node>
+
+   <node pkg="dual_planar_arm" type="tf_broadcaster" name="tf_br" output="screen" >
+   </node>
+
+   <node pkg="dual_planar_arm" type="tf_listener" name="tf_ln" output="screen" >
+   </node>
+   
+   <node pkg="dual_planar_arm" type="right_arm_IK_service" name="ik_service" output="screen" >
+   </node>
+
+   <node pkg="dual_planar_arm" type="track_left_arm" name="tracker" output="screen" >
+   </node>
+   
+   <node pkg="rviz" type="rviz" name="rviz" args="-d $(find dual_planar_arm_description)/rviz/dual_planar_arm.rviz" >
+   </node>
+
+</launch>

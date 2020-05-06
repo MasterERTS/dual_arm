@@ -1,0 +1,98 @@
+<robot name="dual_planar_arm">
+  <link name="base" />
+
+  <link name="r_arm_base" >
+  </link>
+
+  <link name="r_arm" >
+    <visual>
+      <origin xyz="0.5 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="1.0 0.1 0.1"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <link name="r_forearm" > 
+    <visual>
+      <origin xyz="0.5 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="1.0 0.1 0.1"/>
+      </geometry>
+    </visual>
+  </link>
+  
+  <link name="l_arm_base" >
+  </link>  
+
+  <link name="l_arm" > 
+    <visual>
+      <origin xyz="0.5 0 0.15" rpy="0 0 0" />
+      <geometry>
+        <box size="1.0 0.1 0.10"/>
+      </geometry>
+      <material name="Cyan">
+        <color rgba="0 1.0 1.0 1.0"/>
+      </material>
+    </visual>
+  </link>
+
+  <link name="l_forearm" > 
+    <visual>
+      <origin xyz="0.5 0 0.15" rpy="0 0 0" />
+      <geometry>
+        <box size="1.0 0.1 0.10"/>
+      </geometry>
+      <material name="Cyan">
+        <color rgba="0 1.0 1.0 1.0"/>
+      </material>
+    </visual>
+  </link>
+
+<!-- Joints -->
+
+  <joint name="base_to_r_arm_base" type="fixed">
+    <parent link="base"/>
+    <child link="r_arm_base"/>
+    <origin xyz="0 -1 0" rpy="0 0 0" />
+  </joint>
+
+  <joint name="base_to_l_arm_base" type="fixed">
+    <parent link="base"/>
+    <child link="l_arm_base"/>
+    <origin xyz="0 1 0" rpy="0 0 0" />
+  </joint>
+
+  <joint name="r_shoulder" type="revolute">
+    <limit lower="-1.57" upper="1.57" effort="10" velocity="3"/>
+    <parent link="r_arm_base"/>
+    <child link="r_arm"/>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 0 1" />
+  </joint>
+
+  <joint name="r_elbow" type="revolute">
+    <limit lower="-2.36" upper="2.36" effort="10" velocity="3"/>
+    <parent link="r_arm"/>
+    <child link="r_forearm"/>
+    <origin xyz="1 0 0" rpy="0 0 0" />
+    <axis xyz="0 0 1" />
+  </joint>
+
+  <joint name="l_shoulder" type="revolute">
+    <limit lower="-1.57" upper="1.57" effort="10" velocity="3"/>
+    <parent link="l_arm_base"/>
+    <child link="l_arm"/>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 0 -1" />
+  </joint>
+
+  <joint name="l_elbow" type="revolute">
+    <limit lower="-2.36" upper="2.36" effort="10" velocity="3"/>
+    <parent link="l_arm"/>
+    <child link="l_forearm"/>
+    <origin xyz="1 0 0" rpy="0 0 0" />
+    <axis xyz="0 0 -1" />
+  </joint>
+
+</robot>
