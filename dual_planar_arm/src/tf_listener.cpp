@@ -15,17 +15,17 @@ int main(int argc, char** argv){
   add_turtle.call(srv);
   */
   // Declare you publishers and service servers
-  ros::Publisher pubGoalPose = nh_glob.advertise<geometry_msgs::PoseStamped>("/goal_pos",1) ;
+  ros::Publisher pubGoalPose = nh_glob.advertise<geometry_msgs::PoseStamped>("/goal_pos",1);
   tf::TransformListener listener;
 
-  listener.waitForTransform("/r_arm_base", "/r_arm_goal", 
+  listener.waitForTransform("/r_arm_base", "r_arm_goal", 
                                 ros::Time(0), ros::Duration(5.0), ros::Duration(2));
 
   ros::Rate rate(10.0);
   while (ros::ok()){
     tf::StampedTransform transform;
     try{
-      listener.lookupTransform("/r_arm_base", "/r_arm_goal",
+      listener.lookupTransform("/r_arm_base", "r_arm_goal",
                                ros::Time(0), transform);
     }
     catch (tf::TransformException ex){

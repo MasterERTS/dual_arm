@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/erwin/catkin_ws/src/dual_planar_arm/build/devel/setup.sh
