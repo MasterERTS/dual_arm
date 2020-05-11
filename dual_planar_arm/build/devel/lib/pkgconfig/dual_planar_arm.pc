@@ -1,8 +1,0 @@
-prefix=/home/erwin/catkin_ws/src/dual_planar_arm/build/devel
-
-Name: dual_planar_arm
-Description: Description of dual_planar_arm
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib -ldual_planar_arm
-Requires: roscpp sensor_msgs dual_planar_arm_msgs
