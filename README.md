@@ -27,7 +27,7 @@
 
 <p align="center">
     <!--- relative path means image/image.png instead of https://etc... -->
-    <img src="img/dual_planar.gif" alt="Logo" width="700" height="463">                           
+    <img src="img/dual_planar.gif" alt="Logo" width="500" height="250">                           
 </a>
 
 ## Setup
