@@ -12,14 +12,9 @@
 
 // My Packages
 #include <dual_planar_arm_msgs/DualArmIK.h>
+#include <tf/transform_listener.h>
 #include <sensor_msgs/JointState.h>
 #include <geometry_msgs/PoseStamped.h>
-
-geometry_msgs::PoseStamped goalPose;
-
-void rightArmGoalCallback(geometry_msgs::PoseStamped receivedGoalPose) {
-    goalPose = receivedGoalPose;
-}
 
 int main (int argc, char** argv)
 {
@@ -32,16 +27,43 @@ int main (int argc, char** argv)
 
     // Declare you publishers and service servers
     ros::ServiceClient client = nh_glob.serviceClient<dual_planar_arm_msgs::DualArmIK>("/right_arm_IK_service");
-    ros::Subscriber subGoalPose = nh_glob.subscribe<geometry_msgs::PoseStamped>("/goal_pos", 1, rightArmGoalCallback);
 
     ros::Publisher pubRightArm = nh_glob.advertise<sensor_msgs::JointState>("/joint_command", 1);
-
+ 
     // messages Initialization
     dual_planar_arm_msgs::DualArmIK service_msg;
+
+    tf::TransformListener listener;
+    tf::StampedTransform transform;
+
+    listener.waitForTransform("/r_arm_base", "r_arm_goal", 
+                                ros::Time(0), ros::Duration(5.0), ros::Duration(2));
 
     ros::Rate rate(100);   // Or other rate.
     while (ros::ok()) {
         ros::spinOnce();
+
+        try{
+        listener.lookupTransform("/r_arm_base", "r_arm_goal",
+                                ros::Time(0), transform);
+        }
+        catch (tf::TransformException ex){
+        ROS_ERROR("%s",ex.what());
+        ros::Duration(1.0).sleep();
+        continue ;
+        }
+
+        geometry_msgs::PoseStamped goalPose;
+        
+        // Enter Goal Position from Transform 
+        goalPose.header.frame_id = "r_arm_goal";
+        goalPose.pose.position.x = transform.getOrigin().x();
+        goalPose.pose.position.y = transform.getOrigin().y();
+        goalPose.pose.position.z = transform.getOrigin().z();
+        goalPose.pose.orientation.x = transform.getRotation().x();
+        goalPose.pose.orientation.y = transform.getRotation().y();
+        goalPose.pose.orientation.z = transform.getRotation().z();
+        goalPose.pose.orientation.w = transform.getRotation().w();
 
         // Everything is done in the callback function. 
         // This loop only defines the frequency at which incoming messages are attended to.

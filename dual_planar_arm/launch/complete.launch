@@ -14,9 +14,6 @@
    <node pkg="dual_planar_arm" type="tf_broadcaster" name="tf_br" output="screen" >
    </node>
 
-   <node pkg="dual_planar_arm" type="tf_listener" name="tf_ln" output="screen" >
-   </node>
-   
    <node pkg="dual_planar_arm" type="right_arm_IK_service" name="ik_service" output="screen" >
    </node>
 

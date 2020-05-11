@@ -132,7 +132,6 @@ include ${catkin_INCLUDE_DIRS}
 add_executable(simulator src/simulator.cpp)
 add_executable(move_left_arm src/move_left_arm.cpp)
 add_executable(tf_broadcaster src/tf_broadcaster.cpp)
-add_executable(tf_listener src/tf_listener.cpp)
 add_executable(right_arm_IK_service src/right_arm_IK_service.cpp)
 add_executable(track_left_arm src/track_left_arm.cpp)
 
@@ -142,7 +141,6 @@ add_executable(track_left_arm src/track_left_arm.cpp)
 # add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 add_dependencies(simulator ${catkin_EXPORTED_TARGETS})
 add_dependencies(tf_broadcaster ${catkin_EXPORTED_TARGETS})
-add_dependencies(tf_listener ${catkin_EXPORTED_TARGETS})
 add_dependencies(right_arm_IK_service ${catkin_EXPORTED_TARGETS})
 add_dependencies(move_left_arm ${catkin_EXPORTED_TARGETS})
 add_dependencies(track_left_arm ${catkin_EXPORTED_TARGETS})
@@ -168,9 +166,6 @@ target_link_libraries(move_left_arm
   ${catkin_LIBRARIES}
 )
 target_link_libraries(tf_broadcaster 
-  ${catkin_LIBRARIES}
-)
-target_link_libraries(tf_listener
   ${catkin_LIBRARIES}
 )
 target_link_libraries(right_arm_IK_service 
